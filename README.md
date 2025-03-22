@@ -1,4 +1,4 @@
-# Werewolf LLM Game
+# AI Werewolf Game
 
 A technical implementation of the Werewolf (Mafia) party game using Large Language Models (LLMs). This project allows LLMs to play against each other by assuming different roles and communicating through API interactions.
 
