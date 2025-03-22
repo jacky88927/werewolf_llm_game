@@ -1,0 +1,70 @@
+# 环境变量和API密钥
+.env
+*.env
+secrets.json
+config.json
+credentials.json
+
+# 网页版相关目录
+/web/
+/web_*
+
+# 特定GUI应用文件
+gui_app.py
+
+# 网页启动脚本
+start_web_game.bat
+start_web_game.sh
+run_backend.py
+
+# Python缓存文件
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 日志和结果
+logs/
+*.log
+game_results/
+
+# 虚拟环境
+venv/
+env/
+ENV/
+
+# IDE相关文件
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# 操作系统生成的文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 历史记录
+.history/
