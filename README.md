@@ -1,77 +1,82 @@
-# 狼人殺 LLM 遊戲
+# Werewolf LLM Game
 
-這個專案使用不同的大型語言模型 (LLM) API 來玩狼人殺遊戲。每個 LLM 扮演一個角色，並通過 API 互相交流以進行遊戲。
+A technical implementation of the Werewolf (Mafia) party game using Large Language Models (LLMs). This project allows LLMs to play against each other by assuming different roles and communicating through API interactions.
 
-## 遊戲規則
+## Technical Overview
 
-狼人殺是一個角色扮演的社交推理遊戲：
+This project demonstrates the capabilities of LLMs in a complex social deduction game environment, requiring strategic thinking, deception, and logical reasoning.
 
-1. **角色分配**：玩家被隨機分配為村民、狼人或特殊角色（如預言家、女巫等）
-2. **遊戲循環**：
-   - **夜晚階段**：狼人選擇一名玩家攻擊，特殊角色使用他們的能力
-   - **白天階段**：所有玩家討論，試圖找出誰是狼人，然後投票放逐一名玩家
-3. **獲勝條件**：
-   - 村民陣營：消滅所有狼人
-   - 狼人陣營：狼人數量等於或超過村民數量
+## Project Architecture
 
-## 項目結構
+- `/api` - API connectors for different LLM providers
+  - Handles authentication and request formatting
+  - Implements rate limiting and error handling
+  - Provides abstraction layers for different LLM providers
+  
+- `/game` - Core game logic and flow control
+  - Game state management
+  - Turn sequence handling
+  - Event processing system
+  - Game rule enforcement
 
-- `/api` - 與不同的 LLM API 連接的代碼
-- `/game` - 遊戲核心邏輯和流程控制
-- `/gui` - 圖形用戶界面
-- `/roles` - 不同角色的定義和行為
-- `/utils` - 輔助功能和工具
+- `/gui` - Graphical user interface
+  - Built with CustomTkinter
+  - Real-time game visualization
+  - Interaction panels for human players
+  - Game logging and status displays
 
-## 使用方法
+- `/roles` - Role definitions and behaviors
+  - Role-specific action handlers
+  - Special ability implementations
+  - Base classes for role inheritance
+  - Role balance parameters
 
-### 環境設置
+- `/utils` - Utility functions and helpers
+  - Text processing utilities
+  - Configuration management
+  - Logging infrastructure
+  - Random generation with controlled seed
 
-1. 確保已安裝 Python 3.8 或更高版本。
+## Technical Implementation
 
-2. 安裝必要的依賴：
+### Environment Configuration
+
+1. Requires Python 3.8+ runtime environment.
+
+2. Dependencies installation:
    ```
    pip install -r requirements.txt
    ```
 
-3. 創建一個 `.env` 文件（基於 `.env.example`），填入你的 API 密鑰。
+3. API key configuration in `.env` file based on the `.env.example` template.
 
-### 運行遊戲
+### Technical Features
 
-基本用法（GUI模式）：
-```
-python main.py
-```
+- **Multi-LLM Orchestration**: Manages multiple concurrent LLM instances with different system prompts
+- **Memory Management**: Implements conversation history handling with context window optimization
+- **Prompt Engineering**: Specialized prompts for different game phases and roles
+- **Hybrid Player Support**: Seamless integration of human and AI players in the same game
+- **State Persistence**: Game state serialization and save/load functionality
+- **Custom GUI Framework**: Dedicated interface with real-time updates
 
-自定義設置（命令行）：
-```
-python main.py --players 8 --werewolves 3 --special seer,witch --max-days 15
-```
+### Implementation Details
 
-使用真人玩家：
-```
-python main.py --players 6 --human 1,3,5
-```
+The core engine utilizes a turn-based state machine pattern, with event handlers for different game phases. The communication between players is managed through a centralized message broker that handles the formatting and delivery of information based on player roles and game state.
 
-## 支持的角色
+Special attention has been given to prompt design to ensure LLMs can:
+- Understand the game state based on partial information
+- Make strategic decisions within their role constraints
+- Reason about other players' possible roles
+- Communicate in natural language during discussions
 
-- **村民**：沒有特殊能力，但可以參與討論和投票
-- **狼人**：夜晚可以選擇一名玩家攻擊
-- **預言家**：夜晚可以查看一名玩家的真實身份
-- **女巫**：擁有一瓶救藥和一瓶毒藥
-- **獵人**：被殺死時可以開槍射殺一名玩家
-- **守衛**：夜晚可以保護一名玩家
-- **白痴**：白天投票不會被放逐
-- **長老**：可以承受狼人的第一次攻擊
-- **狼殺手**：村民陣營，但可以與狼人一同行動
-- **通靈師**：可以得知被放逐玩家的真實身份
-- **魔術師**：夜晚可以交換兩名玩家的位置
+## Supported LLM Models
 
-## 支持的 LLM
+- OpenAI: GPT-4, GPT-4o, GPT-4-Turbo, GPT-3.5-Turbo
+- Anthropic: Claude-3-Opus, Claude-3.5-Sonnet, Claude-3-Sonnet, Claude-3-Haiku
 
-- OpenAI (GPT-4, GPT-4o, GPT-4-Turbo, GPT-3.5-Turbo)
-- Anthropic (Claude-3-Opus, Claude-3.5-Sonnet, Claude-3-Sonnet, Claude-3-Haiku)
+## Technical Notes
 
-## 注意事項
-
-- 使用LLM API會產生費用，請注意控制使用量
-- 遊戲結果會保存在 `game_results` 目錄中
+- API costs vary depending on token usage and model selection
+- Game results and logs are stored in the `game_results` directory
+- Performance metrics are available for analysis of model behavior
+- Role-specific behaviors can be customized via configuration files
